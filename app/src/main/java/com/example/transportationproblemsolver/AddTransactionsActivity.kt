@@ -1,6 +1,7 @@
 package com.example.transportationproblemsolver
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -38,6 +39,9 @@ class AddTransactionsActivity : AppCompatActivity() {
                 editor.putInt("t$i", value)
             }
             editor.apply()
+            val intent = Intent(this , ResultActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
