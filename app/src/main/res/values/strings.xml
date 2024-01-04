@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Transportation Problem Solver</string>
-    <string name="insert_data">Insert data</string>
+    <string name="insert_values">Insert values</string>
+    <string name="insert_transactions">Insert transactions</string>
     <string name="next">Next</string>
     <string name="calculate">Calculate</string>
     <string name="n_of_suppliers">N of suppliers >=2</string>
