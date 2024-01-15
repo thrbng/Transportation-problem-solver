@@ -3,12 +3,12 @@ package com.example.transportationproblemsolver
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 
 class AddValuesActivity : AppCompatActivity() {
 
@@ -25,28 +25,31 @@ class AddValuesActivity : AppCompatActivity() {
         val consCount = sharedPreferences.getInt("cons", 2)
 
         repeat(suppCount) { suppIndex ->
-            val suppTextInputLayout = createTextInputLayout("Supplier ${suppIndex + 1}", "s${suppIndex + 1}")
-            valuesView.addView(suppTextInputLayout)
+            val suppEditText = createTextInputEditText("Supplier ${suppIndex + 1}")
+            Log.i("Testv","${suppIndex + 1} ${suppEditText.id}")
+            valuesView.addView(suppEditText)
         }
 
         repeat(consCount) { consIndex ->
-            val consTextInputLayout = createTextInputLayout("Consumer ${consIndex + 1}", "c${consIndex + 1}")
-            valuesView.addView(consTextInputLayout)
+            val consEditText = createTextInputEditText("Consumer ${consIndex + 1}")
+            Log.i("Testv","${consIndex + 1} ${consEditText.id}")
+            valuesView.addView(consEditText)
         }
 
         val temp1: Int = suppCount
-        val temp2: Int = consCount
 
         btnnext.setOnClickListener {
-            for (i in 1..temp1) {
-                val ss = findViewById<EditText>(resources.getIdentifier("s$i", "id", packageName))
-                val value = ss.text.toString().toIntOrNull() ?: 0
-                editor.putInt("s$i", value)
-            }
-            for (j in 1 .. temp2) {
-                val cc = findViewById<EditText>(resources.getIdentifier("c$j", "id", packageName))
-                val value = cc.text.toString().toIntOrNull() ?: 0
-                editor.putInt("c$j", value)
+            for (i in 0 until valuesView.childCount) {
+                val child = valuesView.getChildAt(i)
+                if (child is TextInputEditText) {
+                    if (i < temp1) {
+                        val value = child.text.toString().toInt()
+                        editor.putInt("s${i + 1}", value)
+                    } else {
+                        val value = child.text.toString().toInt()
+                        editor.putInt("c${i + 1}", value)
+                    }
+                }
             }
             editor.apply()
             val intent = Intent(this , AddTransactionsActivity::class.java)
@@ -54,12 +57,11 @@ class AddValuesActivity : AppCompatActivity() {
         }
     }
 
-    private fun createTextInputLayout(hint: String, viewId: String): TextInputLayout {
-        val textInputLayout = TextInputLayout(this)
-        val textInputEditText = TextInputEditText(this)
+    private fun createTextInputEditText(hint: String): EditText {
+        val editText = TextInputEditText(this)
 
-        textInputEditText.hint = hint
-        textInputEditText.inputType = android.text.InputType.TYPE_CLASS_NUMBER
+        editText.hint = hint
+        editText.inputType = android.text.InputType.TYPE_CLASS_NUMBER
 
         val layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -67,12 +69,9 @@ class AddValuesActivity : AppCompatActivity() {
         )
         layoutParams.width = 300.dpToPx()
         layoutParams.topMargin = 20.dpToPx()
-        textInputLayout.layoutParams = layoutParams
+        editText.layoutParams = layoutParams
 
-        textInputEditText.id = resources.getIdentifier(viewId, "id", packageName)
-        textInputLayout.addView(textInputEditText)
-
-        return textInputLayout
+        return editText
     }
 
     private fun Int.dpToPx(): Int {
