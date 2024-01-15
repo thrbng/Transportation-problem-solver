@@ -100,12 +100,14 @@ class ResultActivity : AppCompatActivity() {
         return allocations
     }
 
-    private fun calculateTotalCost(allocations: Array<IntArray>, costs: Array<IntArray>): Int {
+    private fun calculateTotalCost(allocations: Array<IntArray>, costs: IntArray): Int {
         var totalCost = 0
+        var k = 1
 
         for (i in allocations.indices) {
             for (j in 0..<allocations[i].size) {
-                totalCost += allocations[i][j] * costs[i][j]
+                totalCost += allocations[i][j] * costs[k]
+                k++
             }
         }
 
