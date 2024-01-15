@@ -22,7 +22,7 @@ class AddTransactionsActivity : AppCompatActivity() {
         val suppCount = sharedPreferences.getInt("supp", 2)
         val consCount = sharedPreferences.getInt("cons", 2)
 
-        repeat(suppCount ) { suppIndex1 ->
+        repeat(suppCount) { suppIndex1 ->
             repeat(consCount) { suppIndex2 ->
                 val suppTextInputLayout = createTextInputEditText("Transaction ${suppIndex1 + 1}${suppIndex2 + 1}")
                 valuesView.addView(suppTextInputLayout)

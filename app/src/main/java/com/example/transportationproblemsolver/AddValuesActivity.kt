@@ -43,7 +43,7 @@ class AddValuesActivity : AppCompatActivity() {
                         editor.putInt("s${i + 1}", value)
                     } else {
                         val value = child.text.toString().toInt()
-                        editor.putInt("c${i + 1}", value)
+                        editor.putInt("c${i - temp1 + 1}", value)
                     }
                 }
             }
