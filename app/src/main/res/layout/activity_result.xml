@@ -29,6 +29,7 @@
             android:text="Total cost = "
             android:textSize="30sp"/>
         <TextView
+            android:id="@+id/costN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"

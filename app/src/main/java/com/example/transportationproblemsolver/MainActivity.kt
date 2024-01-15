@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
                 if (supp>=2) {
                     if (cons>=2) {
+                        editor.clear()
                         editor.putInt("supp",supp)
                         editor.putInt("cons",cons)
                         editor.apply()
