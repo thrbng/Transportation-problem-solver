@@ -8,7 +8,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 
 class AddTransactionsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,32 +24,30 @@ class AddTransactionsActivity : AppCompatActivity() {
 
         repeat(suppCount ) { suppIndex1 ->
             repeat(consCount) { suppIndex2 ->
-                val suppTextInputLayout = createTextInputLayout("Transaction ${suppIndex1 + 1}${suppIndex2 + 1}", "t${(suppIndex1 + 1)*(suppIndex2 + 1)}")
+                val suppTextInputLayout = createTextInputEditText("Transaction ${suppIndex1 + 1}${suppIndex2 + 1}")
                 valuesView.addView(suppTextInputLayout)
             }
         }
 
-        val temp: Int = suppCount * consCount
-
         btnClac.setOnClickListener {
-            for (i in 1..temp) {
-                val t = findViewById<EditText>(resources.getIdentifier("t$i", "id", packageName))
-                val value = t.text.toString().toIntOrNull() ?: 0
-                editor.putInt("t$i", value)
+            for (i in 0 until valuesView.childCount) {
+                val child = valuesView.getChildAt(i)
+                if (child is TextInputEditText) {
+                    val value = child.text.toString().toInt()
+                    editor.putInt("t${i + 1}", value)
+                }
             }
             editor.apply()
             val intent = Intent(this , ResultActivity::class.java)
             startActivity(intent)
-            finish()
         }
     }
 
-    private fun createTextInputLayout(hint: String, viewId: String): TextInputLayout {
-        val textInputLayout = TextInputLayout(this)
-        val textInputEditText = TextInputEditText(this)
+    private fun createTextInputEditText(hint: String): EditText {
+        val editText = TextInputEditText(this)
 
-        textInputEditText.hint = hint
-        textInputEditText.inputType = android.text.InputType.TYPE_CLASS_NUMBER
+        editText.hint = hint
+        editText.inputType = android.text.InputType.TYPE_CLASS_NUMBER
 
         val layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -58,12 +55,9 @@ class AddTransactionsActivity : AppCompatActivity() {
         )
         layoutParams.width = 300.dpToPx()
         layoutParams.topMargin = 20.dpToPx()
-        textInputLayout.layoutParams = layoutParams
+        editText.layoutParams = layoutParams
 
-        textInputEditText.id = resources.getIdentifier(viewId, "id", packageName)
-        textInputLayout.addView(textInputEditText)
-
-        return textInputLayout
+        return editText
     }
 
     private fun Int.dpToPx(): Int {
