@@ -1,11 +1,11 @@
 package com.example.transportationproblemsolver
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 
 class ResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,6 +13,7 @@ class ResultActivity : AppCompatActivity() {
         setContentView(R.layout.activity_result)
 
         val tableLayout = findViewById<TableLayout>(R.id.tableLayout)
+        val costN = findViewById<TextView>(R.id.costN)
 
         val suppliers = getSuppValues()
         val consumers = getConsValues()
@@ -33,6 +34,8 @@ class ResultActivity : AppCompatActivity() {
                 row.addView(consumerTextView)
             }
         }
+
+        costN.text = "${calculateTotalCost(allocations, transactions)}"
     }
 
     private fun getSuppValues(): IntArray {
@@ -102,10 +105,10 @@ class ResultActivity : AppCompatActivity() {
 
     private fun calculateTotalCost(allocations: Array<IntArray>, costs: IntArray): Int {
         var totalCost = 0
-        var k = 1
+        var k = 0
 
         for (i in allocations.indices) {
-            for (j in 0..<allocations[i].size) {
+            for (j in 0 until allocations[i].size) {
                 totalCost += allocations[i][j] * costs[k]
                 k++
             }
