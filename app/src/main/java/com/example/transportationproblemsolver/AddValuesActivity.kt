@@ -3,7 +3,6 @@ package com.example.transportationproblemsolver
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -16,7 +15,7 @@ class AddValuesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_values)
 
         val valuesView = findViewById<LinearLayout>(R.id.valuesView)
-        val btnnext = findViewById<Button>(R.id.btnnext)
+        val btnNext = findViewById<Button>(R.id.btnNext)
 
         val sharedPreferences = getSharedPreferences("data_cash", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
@@ -25,19 +24,17 @@ class AddValuesActivity : AppCompatActivity() {
 
         repeat(suppCount) { suppIndex ->
             val suppEditText = createTextInputEditText("Supplier ${suppIndex + 1}")
-            Log.i("Testv","${suppIndex + 1} ${suppEditText.id}")
             valuesView.addView(suppEditText)
         }
 
         repeat(consCount) { consIndex ->
             val consEditText = createTextInputEditText("Consumer ${consIndex + 1}")
-            Log.i("Testv","${consIndex + 1} ${consEditText.id}")
             valuesView.addView(consEditText)
         }
 
         val temp1: Int = suppCount
 
-        btnnext.setOnClickListener {
+        btnNext.setOnClickListener {
             for (i in 0 until valuesView.childCount) {
                 val child = valuesView.getChildAt(i)
                 if (child is TextInputEditText) {
