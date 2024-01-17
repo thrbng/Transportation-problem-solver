@@ -6,4 +6,6 @@
     <string name="calculate">Calculate</string>
     <string name="n_of_suppliers">N of suppliers >=2</string>
     <string name="n_of_consumers">N of consumers >=2</string>
+    <string name="total_coste">Total cost =</string>
+    <string name="total_cost">0</string>
 </resources>
