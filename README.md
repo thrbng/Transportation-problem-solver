@@ -1,4 +1,4 @@
-The goal of this application is to solve the transportation problem using 
+#The goal of this application is to solve the transportation problem using 
 the North-West algorithm by using KOTLIN and XML for development.
 ![number of suppliers and consumers](https://github.com/thrbng/Transportation_Problem_Solver/assets/107438222/904fbdc2-5753-4187-9ed7-8ef136d0e64d)
 ![values of each one](https://github.com/thrbng/Transportation_Problem_Solver/assets/107438222/a1544ef7-4478-47f7-ae27-5304ff3413c6)
